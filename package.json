@@ -1,0 +1,26 @@
+{
+  "name": "employment-management-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pocall23/Employment-Management-System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pocall23/Employment-Management-System/issues"
+  },
+  "homepage": "https://github.com/pocall23/Employment-Management-System#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^9.1.1",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^2.6.1"
+  }
+}
