@@ -163,8 +163,7 @@ function addDepartment(){
             FROM employee
             LEFT JOIN employee e 
             ON employee.manager_id = e.id
-            WHERE employee.manager_id = e.id
-            WHERE employee.manaher_id IS NOT NULL
+            WHERE employee.manager_id IS NOT NULL
         `, (err,manager_result)=>{
             if(err) throw err;
             inquirer.prompt([
@@ -223,7 +222,7 @@ function addDepartment(){
         };
 
        function viewRoles(){
-        const sql = `SELECT role.id, title, department,name  AS department, salary FROM role LEFT JOIN department ON role.deparmtent_id = department.id ORDER BY role.id;` ;
+        const sql = `SELECT role.id, title, department.name  AS department, salary FROM role LEFT JOIN department ON role.department_id = department.id ORDER BY role.id;` ;
         db.query(sql, (err, result) => {
             if (err) throw err;
             console.log(result);
@@ -232,7 +231,7 @@ function addDepartment(){
        };
 
        function viewEmployees(){
-        const sql = `SELECT employye.id, employee.first_name, employee.last_name,title, name AS department, salary, CONCAT(e.first_name," ", e.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee e ON employee.manager_id = e.id ORDER BY employee.ed;`;
+        const sql = `SELECT employee.id, employee.first_name, employee.last_name,title, name AS department, salary, CONCAT(e.first_name," ", e.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee e ON employee.manager_id = e.id ORDER BY employee.id;`;
         db.query(sql, (err, result) => {
             if(err) throw err;
             console.table(result);
@@ -255,12 +254,12 @@ function addDepartment(){
                          {
                             name: "role",
                             type: "list",
-                            message:"choose the role that you would like to update." ,
+                            message:"choose the role that you would like to assugn to this employee." ,
                             choices: () => role_result.map((role_result) => role_result.title), 
                          },
                     ]).then((answers) => {
                         const roleId = role_result.filter((role_result) = role_result.title === answers.role)[0].id;
-                        const empId = employee_result.filter((employee_result)=> employee_result.first_name + " " + employee_result.last_name === answers.employee)[0].id;
+                        const employeeId = employee_result.filter((employee_result)=> employee_result.first_name + " " + employee_result.last_name === answers.employee)[0].id;
                         db.query(
                             `UPDATE employee SET ? WHERE ?`,
                             [{
